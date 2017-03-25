@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+//Imports for audio files
 
 public class Translate : MonoBehaviour {
 	/*

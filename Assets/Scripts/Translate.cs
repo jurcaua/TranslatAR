@@ -22,7 +22,7 @@ public class Translate : MonoBehaviour {
 	void Start () {
 		// Strictly for debugging to test a few words!
 		if(isDebug)
-			StartCoroutine (Process ("en","Bonjour l'hiver."));
+			StartCoroutine (Process ("en","Bonjour."));
 	}
 	// We have use googles own api built into google Translator.
 	public IEnumerator Process (string targetLang, string sourceText) {

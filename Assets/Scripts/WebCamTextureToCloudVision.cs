@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+//using Vuforia;
 
 public class WebCamTextureToCloudVision : MonoBehaviour {
 
@@ -12,7 +13,9 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	public int requestedHeight = 480;
 	public FeatureType featureType = FeatureType.FACE_DETECTION;
 	public int maxResults = 10;
+
 	public Text label;
+	private Vuforia.Image.PIXEL_FORMAT PixelFormat = Vuforia.Image.PIXEL_FORMAT.GRAYSCALE;
 
 	WebCamTexture webcamTexture;
 	Texture2D texture2D;
@@ -199,6 +202,10 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//CameraDevice.Instance.SetFrameFormat (PixelFormat, true);
+
+		//Application.RequestUserAuthorization (UserAuthorization.WebCam);
+
 		headers = new Dictionary<string, string>();
 		headers.Add("Content-Type", "application/json; charset=UTF-8");
 
@@ -211,6 +218,7 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 		}
 		if (devices.Length > 0) {
 			webcamTexture = new WebCamTexture(devices[0].name, requestedWidth, requestedHeight);
+			//webcamTexture = new WebCamTexture(devices[0].name);
 			Renderer r = GetComponent<Renderer> ();
 			if (r != null) {
 				Material m = r.material;
@@ -225,7 +233,19 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+		if (webcamTexture != null || webcamTexture.didUpdateThisFrame)
+		{
+			Renderer r = GetComponent<Renderer> ();
+			if (r != null) {
+				Material m = r.material;
+				if (m != null) {
+					m.mainTexture = webcamTexture;
+				}
+			}
+		}
+		if (!webcamTexture.isPlaying) {
+			webcamTexture.Play ();
+		}
 	}
 
 	private IEnumerator Capture() {
@@ -282,7 +302,7 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 						// SendMessage, BroadcastMessage or someting like that.
 						Sample_OnAnnotateImageResponses(responses);
 						if (responses.responses.Count > 0 && responses.responses[0].labelAnnotations.Count > 0){
-							label.text = responses.responses[0].labelAnnotations[0].description;
+							label.text = "This is a " + responses.responses[0].labelAnnotations[0].description;
 						}
 					} else {
 						Debug.Log("Error: " + www.error);

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class WebCamTextureToCloudVision : MonoBehaviour {
 
-	public string url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDcaHwd9Bf4T9Mwen7D2jSwLL0KvVVi3EE";
-	public string apiKey = "AIzaSyDcaHwd9Bf4T9Mwen7D2jSwLL0KvVVi3EE";
+	private string url = "https://vision.googleapis.com/v1/images:annotate?key=";
+	private string apiKey = "AIzaSyDcaHwd9Bf4T9Mwen7D2jSwLL0KvVVi3EE";
 	public float captureIntervalSeconds = 5.0f;
 	public int requestedWidth = 640;
 	public int requestedHeight = 480;
@@ -266,10 +266,14 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 
 			string jsonData = JsonUtility.ToJson(requests, false);
 			if (jsonData != string.Empty) {
+				Debug.Log(this.url);
+				Debug.Log(this.apiKey);
 				string url = this.url + this.apiKey;
+				Debug.Log(url);
 				byte[] postData = System.Text.Encoding.Default.GetBytes(jsonData);
 				using(WWW www = new WWW(url, postData, headers)) {
 					yield return www;
+					Debug.Log(www.text);
 					if (www.error == null) {
 						Debug.Log(www.text.Replace("\n", "").Replace(" ", ""));
 						AnnotateImageResponses responses = JsonUtility.FromJson<AnnotateImageResponses>(www.text);

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WebCamTextureToCloudVision : MonoBehaviour {
 
@@ -11,6 +12,7 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	public int requestedHeight = 480;
 	public FeatureType featureType = FeatureType.FACE_DETECTION;
 	public int maxResults = 10;
+	public Text label;
 
 	WebCamTexture webcamTexture;
 	Texture2D texture2D;
@@ -279,6 +281,9 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 						AnnotateImageResponses responses = JsonUtility.FromJson<AnnotateImageResponses>(www.text);
 						// SendMessage, BroadcastMessage or someting like that.
 						Sample_OnAnnotateImageResponses(responses);
+						if (responses.responses.Count > 0 && responses.responses[0].labelAnnotations.Count > 0){
+							label.text = responses.responses[0].labelAnnotations[0].description;
+						}
 					} else {
 						Debug.Log("Error: " + www.error);
 					}

@@ -9,6 +9,8 @@ public class Audio : MonoBehaviour {
 	static string m_TestString = " ";
 	static string m_ExpressiveText = "<speak version=\"1.0\"><prosody pitch=\"150Hz\">Hello! This is the </prosody><say-as interpret-as=\"letters\">IBM</say-as> Watson <express-as type=\"GoodNews\">Unity</express-as></prosody><say-as interpret-as=\"letters\">SDK</say-as>!</speak>";
 
+	static float waitFor = 0;
+
 	void Start ()
 	{
 		m_TextToSpeech.Voice = VoiceType.en_US_Allison;
@@ -35,8 +37,11 @@ public class Audio : MonoBehaviour {
 			source.Play();
 
 			GameObject.Destroy(audioObject, clip.length);
+
+			ARJTalking.setTalking(clip.length);
 		}
 	}
+
 	public static void setText(string toSet) {
 		m_TestString = toSet;
 		m_TextToSpeech.Voice = VoiceType.en_US_Allison;

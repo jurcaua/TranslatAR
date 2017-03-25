@@ -310,7 +310,8 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 						if (responses.responses.Count > 0 && responses.responses[0].labelAnnotations.Count > 0){
 							Destroy(currentLabel);
 							currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform)  as GameObject;
-							currentLabel.GetComponent<Text>().text = "This is a " + responses.responses[0].labelAnnotations[0].description;
+							currentLabel.GetComponent<Text>().text = responses.responses[0].labelAnnotations[0].description;
+							Audio.setText(currentLabel.GetComponent<Text>().text);
 						}
 					} else {
 						Debug.Log("Error: " + www.error);

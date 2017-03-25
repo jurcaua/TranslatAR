@@ -206,6 +206,8 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		textSpawnPoint.gameObject.SetActive (false);
+
 		currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform) as GameObject;
 
 		//CameraDevice.Instance.SetFrameFormat (PixelFormat, true);

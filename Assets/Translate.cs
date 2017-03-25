@@ -47,7 +47,7 @@ public class Translate : MonoBehaviour {
 				// This is purely for debugging in the Editor to see if it's the word you wanted.
 				if(isDebug)
 					print(translatedText);
-					result.text = translatedText;
+				result.text = translatedText;
 			}
 		}
 	}

@@ -6,7 +6,7 @@ using IBM.Watson.DeveloperCloud.Services.TextToSpeech.v1;
 public class Audio : MonoBehaviour {
 
 	static TextToSpeech m_TextToSpeech = new TextToSpeech();
-	static string m_TestString = "";
+	static string m_TestString = " ";
 	static string m_ExpressiveText = "<speak version=\"1.0\"><prosody pitch=\"150Hz\">Hello! This is the </prosody><say-as interpret-as=\"letters\">IBM</say-as> Watson <express-as type=\"GoodNews\">Unity</express-as></prosody><say-as interpret-as=\"letters\">SDK</say-as>!</speak>";
 
 	void Start ()

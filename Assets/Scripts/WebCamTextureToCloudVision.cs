@@ -14,7 +14,10 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	public FeatureType featureType = FeatureType.FACE_DETECTION;
 	public int maxResults = 10;
 
-	public Text label;
+	public GameObject canvas;
+	public Transform textSpawnPoint;
+	public GameObject label;
+	private GameObject currentLabel;
 	private Vuforia.Image.PIXEL_FORMAT PixelFormat = Vuforia.Image.PIXEL_FORMAT.GRAYSCALE;
 
 	WebCamTexture webcamTexture;
@@ -202,6 +205,9 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform) as GameObject;
+
 		//CameraDevice.Instance.SetFrameFormat (PixelFormat, true);
 
 		//Application.RequestUserAuthorization (UserAuthorization.WebCam);
@@ -302,7 +308,9 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 						// SendMessage, BroadcastMessage or someting like that.
 						Sample_OnAnnotateImageResponses(responses);
 						if (responses.responses.Count > 0 && responses.responses[0].labelAnnotations.Count > 0){
-							label.text = "This is a " + responses.responses[0].labelAnnotations[0].description;
+							Destroy(currentLabel);
+							currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform)  as GameObject;
+							currentLabel.GetComponent<Text>().text = "This is a " + responses.responses[0].labelAnnotations[0].description;
 						}
 					} else {
 						Debug.Log("Error: " + www.error);

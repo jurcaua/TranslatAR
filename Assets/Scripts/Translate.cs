@@ -53,6 +53,8 @@ public class Translate : MonoBehaviour {
 					print (translatedText);
 				}
 				// here we have translatedText, do something with it:
+				Audio.setText(translatedText);
+			
 				vision.SetTranslated(translatedText);
 			}
 		}

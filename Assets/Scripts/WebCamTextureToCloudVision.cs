@@ -322,7 +322,7 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 							Destroy(currentLabel);
 							currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform)  as GameObject;
 							currentLabel.GetComponent<Text>().text = responses.responses[0].labelAnnotations[0].description;
-							Audio.setText(currentLabel.GetComponent<Text>().text);
+							//Audio.setText(currentLabel.GetComponent<Text>().text);
 
 							// translate it
 							StartCoroutine(translate.Process (curr_lang, currentLabel.GetComponent<Text>().text));

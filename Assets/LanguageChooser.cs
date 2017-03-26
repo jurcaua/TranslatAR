@@ -43,7 +43,5 @@ public class LanguageChooser : MonoBehaviour {
 			webcam.SetCurrentLanguage ("pt");
 
 		}
-
-			
 	}
 }

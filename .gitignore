@@ -21,6 +21,7 @@ ExportedObj/
 
 # Unity3D generated meta files
 *.pidb.meta
+iOS
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
@@ -79,3 +80,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+iOS/Classes/CrashReporter.h

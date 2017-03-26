@@ -16,9 +16,11 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 
 	public GameObject canvas;
 	public Transform textSpawnPoint;
+	public Text translatedSpawnPoint;
 	public GameObject label;
 	private GameObject currentLabel;
 	private Vuforia.Image.PIXEL_FORMAT PixelFormat = Vuforia.Image.PIXEL_FORMAT.GRAYSCALE;
+	private Translate translate;
 
 	WebCamTexture webcamTexture;
 	Texture2D texture2D;
@@ -207,8 +209,11 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	void Start () {
 
 		textSpawnPoint.gameObject.SetActive (false);
+		//translatedSpawnPoint.gameObject.SetActive (false);
 
 		currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform) as GameObject;
+
+		translate = GameObject.FindGameObjectWithTag ("Translate").GetComponent<Translate> ();
 
 		//CameraDevice.Instance.SetFrameFormat (PixelFormat, true);
 
@@ -310,10 +315,16 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 						// SendMessage, BroadcastMessage or someting like that.
 						Sample_OnAnnotateImageResponses(responses);
 						if (responses.responses.Count > 0 && responses.responses[0].labelAnnotations.Count > 0){
+
+							// make a new text object and set the text to it
 							Destroy(currentLabel);
 							currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform)  as GameObject;
 							currentLabel.GetComponent<Text>().text = responses.responses[0].labelAnnotations[0].description;
 							Audio.setText(currentLabel.GetComponent<Text>().text);
+
+							// translate it
+							StartCoroutine(translate.Process ("fr", currentLabel.GetComponent<Text>().text));
+							//translate.Process("fr", currentLabel.GetComponent<Text>().text);
 						}
 					} else {
 						Debug.Log("Error: " + www.error);
@@ -345,5 +356,9 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 				Debug.Log("joyLikelihood: " + responses.responses[0].faceAnnotations[0].joyLikelihood);
 			}
 		}
+	}
+
+	public void SetTranslated(string toSet){
+		translatedSpawnPoint.text = toSet;
 	}
 }

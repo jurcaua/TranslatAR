@@ -13,8 +13,12 @@ public class Translate : MonoBehaviour {
 	// Here's where we store the translated text!
 	private string translatedText = "";
 
+	private WebCamTextureToCloudVision vision;
+
 	// This is only called when the scene loads.
 	void Start () {
+		vision = GameObject.FindGameObjectWithTag ("Webcam").GetComponent<WebCamTextureToCloudVision> ();
+
 		// Strictly for debugging to test a few words!
 		if(isDebug)
 			StartCoroutine (Process ("en","Bonsoir."));
@@ -43,8 +47,11 @@ public class Translate : MonoBehaviour {
 				// Dig through and take apart the text to get to the good stuff.
 				translatedText = N[0][0][0];
 				// This is purely for debugging in the Editor to see if it's the word you wanted.
-				if(isDebug)
-					print(translatedText);
+				if (isDebug) {
+					print (translatedText);
+				}
+				// here we have translatedText, do something with it:
+				vision.SetTranslated(translatedText);
 			}
 		}
 	}

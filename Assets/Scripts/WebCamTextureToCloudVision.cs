@@ -14,6 +14,8 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	public FeatureType featureType = FeatureType.FACE_DETECTION;
 	public int maxResults = 10;
 
+	[HideInInspector] public string curr_lang = "fr";
+
 	public GameObject canvas;
 	public Transform textSpawnPoint;
 	public Text translatedSpawnPoint;
@@ -323,7 +325,7 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 							Audio.setText(currentLabel.GetComponent<Text>().text);
 
 							// translate it
-							StartCoroutine(translate.Process ("fr", currentLabel.GetComponent<Text>().text));
+							StartCoroutine(translate.Process (curr_lang, currentLabel.GetComponent<Text>().text));
 							//translate.Process("fr", currentLabel.GetComponent<Text>().text);
 						}
 					} else {
@@ -360,5 +362,9 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 
 	public void SetTranslated(string toSet){
 		translatedSpawnPoint.text = toSet;
+	}
+
+	public void SetCurrentLanguage (string curr){
+		curr_lang = curr;
 	}
 }

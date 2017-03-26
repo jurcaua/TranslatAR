@@ -27,7 +27,8 @@ public class Translate : MonoBehaviour {
 	// We have use googles own api built into google Translator.
 	public IEnumerator Process (string targetLang, string sourceText) {
 		// We use Auto by default to determine if google can figure it out.. sometimes it can't.
-		string sourceLang = "auto";
+		//string sourceLang = "auto";
+		string sourceLang = "en";
 		// Construct the url using our variables and googles api.
 		string url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" 
 			+ sourceLang + "&tl=" + targetLang + "&dt=t&q=" + WWW.EscapeURL(sourceText);

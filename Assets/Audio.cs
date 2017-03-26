@@ -13,11 +13,13 @@ public class Audio : MonoBehaviour {
 
 	void Start ()
 	{
-		m_TextToSpeech.Voice = VoiceType.en_US_Allison;
+		//m_TextToSpeech.Voice = VoiceType.en_US_Allison;
+		m_TextToSpeech.Voice = VoiceType.es_ES_Enrique; 
 		m_TextToSpeech.ToSpeech(m_TestString, HandleToSpeechCallback);
 
 		m_TextToSpeech.Voice = VoiceType.en_US_Allison;
 		m_TextToSpeech.ToSpeech(m_ExpressiveText, HandleToSpeechCallback);
+
 	}
 
 	static void HandleToSpeechCallback (AudioClip clip)
@@ -44,7 +46,7 @@ public class Audio : MonoBehaviour {
 
 	public static void setText(string toSet) {
 		m_TestString = toSet;
-		m_TextToSpeech.Voice = VoiceType.en_US_Allison;
+		m_TextToSpeech.Voice = VoiceType.en_US_Michael;
 		m_TextToSpeech.ToSpeech(m_TestString, HandleToSpeechCallback);
 	}
 }

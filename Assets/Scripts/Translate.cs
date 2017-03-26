@@ -4,6 +4,7 @@
 using SimpleJSON;
 using UnityEngine;
 using System.Collections;
+using IBM.Watson.DeveloperCloud.Services.TextToSpeech.v1;
 
 public class Translate : MonoBehaviour {
 
@@ -15,9 +16,13 @@ public class Translate : MonoBehaviour {
 
 	private WebCamTextureToCloudVision vision;
 
+	[HideInInspector] public VoiceType curr_voice;
+
 	// This is only called when the scene loads.
 	void Start () {
 		vision = GameObject.FindGameObjectWithTag ("Webcam").GetComponent<WebCamTextureToCloudVision> ();
+
+		curr_voice = VoiceType.fr_FR_Renee;
 
 		// Strictly for debugging to test a few words!
 		if(isDebug)
@@ -53,12 +58,18 @@ public class Translate : MonoBehaviour {
 					print (translatedText);
 				}
 				// here we have translatedText, do something with it:
-				Audio.setText(translatedText);
+				Audio.setText(translatedText, curr_voice);
 			
 				vision.SetTranslated(translatedText);
 			}
 		}
+
 	}
+	public void SetCurrentVoice (VoiceType curr){
+		curr_voice = curr;
+	}
+
+
 
 	// Exactly the same as above but allow the user to change from Auto, for when google get's all Jerk Butt-y
 	public IEnumerator Process (string sourceLang, string targetLang, string sourceText) {

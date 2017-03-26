@@ -44,9 +44,9 @@ public class Audio : MonoBehaviour {
 		}
 	}
 
-	public static void setText(string toSet) {
+	public static void setText(string toSet, VoiceType voice) {
 		m_TestString = toSet;
-		m_TextToSpeech.Voice = VoiceType.en_US_Michael;
+		m_TextToSpeech.Voice = voice;
 		m_TextToSpeech.ToSpeech(m_TestString, HandleToSpeechCallback);
 	}
 }

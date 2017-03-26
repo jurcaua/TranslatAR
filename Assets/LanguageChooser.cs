@@ -39,7 +39,7 @@ public class LanguageChooser : MonoBehaviour {
 		} else if (language == "Italian") {
 			webcam.SetCurrentLanguage ("it");
 
-		} else if (language == "Portugal") {
+		} else if (language == "Portuguese") {
 			webcam.SetCurrentLanguage ("pt");
 
 		}

@@ -22,7 +22,7 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	public GameObject label;
 	private GameObject currentLabel;
 	private Vuforia.Image.PIXEL_FORMAT PixelFormat = Vuforia.Image.PIXEL_FORMAT.GRAYSCALE;
-	private Translate translate;
+	private TranslateWatson translate;
 
 	WebCamTexture webcamTexture;
 	Texture2D texture2D;
@@ -215,7 +215,7 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 
 		currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform) as GameObject;
 
-		translate = GameObject.FindGameObjectWithTag ("Translate").GetComponent<Translate> ();
+		translate = GameObject.FindGameObjectWithTag ("Translate").GetComponent<TranslateWatson> ();
 
 		//CameraDevice.Instance.SetFrameFormat (PixelFormat, true);
 
@@ -322,11 +322,9 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 							Destroy(currentLabel);
 							currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform)  as GameObject;
 							currentLabel.GetComponent<Text>().text = responses.responses[0].labelAnnotations[0].description;
-							//Audio.setText(currentLabel.GetComponent<Text>().text);
 
 							// translate it
-							StartCoroutine(translate.Process (curr_lang, currentLabel.GetComponent<Text>().text));
-							//translate.Process("fr", currentLabel.GetComponent<Text>().text);
+							translate.Process(curr_lang, currentLabel.GetComponent<Text>().text);
 						}
 					} else {
 						Debug.Log("Error: " + www.error);

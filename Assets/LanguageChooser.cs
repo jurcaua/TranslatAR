@@ -8,7 +8,7 @@ public class LanguageChooser : MonoBehaviour {
 
 	private Dropdown langList;
 	private WebCamTextureToCloudVision webcam;
-	private Translate translate;
+	private TranslateWatson translate;
 
 	// Use this for initialization
 	void Start () {
@@ -16,11 +16,14 @@ public class LanguageChooser : MonoBehaviour {
 
 		webcam = GameObject.FindGameObjectWithTag ("Webcam").GetComponent<WebCamTextureToCloudVision> ();
 
-		translate = GameObject.FindGameObjectWithTag ("Translate").GetComponent<Translate> ();
+		translate = GameObject.FindGameObjectWithTag ("Translate").GetComponent<TranslateWatson> ();
 
 		langList.onValueChanged.AddListener(delegate {
 			ChangeLanguage(langList);
 		});
+
+		webcam.SetCurrentLanguage ("fr");
+		translate.SetCurrentVoice (VoiceType.fr_FR_Renee);
 	}
 	
 	// Update is called once per frame

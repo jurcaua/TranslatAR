@@ -211,7 +211,7 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	void Start () {
 
 		if (Application.platform == RuntimePlatform.IPhonePlayer) {
-			transform.localScale = new Vector3 (transform.localScale.x, -transform.localScale.y, transform.localScale.z);
+			transform.localRotation = Quaternion.Euler(new Vector3(0, 180, 0));
 		}
 
 		textSpawnPoint.gameObject.SetActive (false);

@@ -1,20 +1,15 @@
-﻿using SimpleJSON;
+﻿// We need this for parsing the JSON, unless you use an alternative.
+// You will need SimpleJSON if you don't use alternatives.
+// It can be gotten hither. http://wiki.unity3d.com/index.php/SimpleJSON
+using SimpleJSON;
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
-//Imports for audio files
 
 public class Translate : MonoBehaviour {
-	/*
-	void Start () {
-		foreach (IEnumerator e in Process("en", "Bonsoir"))
-			Debug.Log (e.ToString);
-	}
-*/
 
 	// Should we debug?
 	public bool isDebug = false;
-	public Text result;
+
 	// Here's where we store the translated text!
 	private string translatedText = "";
 
@@ -22,8 +17,9 @@ public class Translate : MonoBehaviour {
 	void Start () {
 		// Strictly for debugging to test a few words!
 		if(isDebug)
-			StartCoroutine (Process ("en","Bonjour."));
+			StartCoroutine (Process ("en","Bonsoir."));
 	}
+
 	// We have use googles own api built into google Translator.
 	public IEnumerator Process (string targetLang, string sourceText) {
 		// We use Auto by default to determine if google can figure it out.. sometimes it can't.
@@ -31,6 +27,7 @@ public class Translate : MonoBehaviour {
 		// Construct the url using our variables and googles api.
 		string url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" 
 			+ sourceLang + "&tl=" + targetLang + "&dt=t&q=" + WWW.EscapeURL(sourceText);
+		//		string url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl="AIzaSyDcaHwd9Bf4T9Mwen7D2jSwLL0KvVVi3EE
 
 		// Put together our unity bits for the web call.
 		WWW www = new WWW (url);
@@ -48,7 +45,6 @@ public class Translate : MonoBehaviour {
 				// This is purely for debugging in the Editor to see if it's the word you wanted.
 				if(isDebug)
 					print(translatedText);
-				result.text = translatedText;
 			}
 		}
 	}
@@ -70,6 +66,4 @@ public class Translate : MonoBehaviour {
 			}
 		}
 	}
-	/*
-	*/
 }

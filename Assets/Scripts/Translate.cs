@@ -32,7 +32,8 @@ public class Translate : MonoBehaviour {
 		// Construct the url using our variables and googles api.
 		string url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" 
 			+ sourceLang + "&tl=" + targetLang + "&dt=t&q=" + WWW.EscapeURL(sourceText);
-		//		string url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl="AIzaSyDcaHwd9Bf4T9Mwen7D2jSwLL0KvVVi3EE
+//		string url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=AIzaSyDcaHwd9Bf4T9Mwen7D2jSwLL0KvVVi3EE=" + sourceLang + "&tl=" + targetLang + 
+//		"&dt=t&q=" + WWW.EscapeURL(sourceText);
 
 		// Put together our unity bits for the web call.
 		WWW www = new WWW (url);

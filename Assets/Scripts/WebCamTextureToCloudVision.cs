@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//using Vuforia;
 
 public class WebCamTextureToCloudVision : MonoBehaviour {
 
@@ -21,7 +20,6 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	public Text translatedSpawnPoint;
 	public GameObject label;
 	private GameObject currentLabel;
-	private Vuforia.Image.PIXEL_FORMAT PixelFormat = Vuforia.Image.PIXEL_FORMAT.GRAYSCALE;
 	private TranslateWatson translate;
 
 	WebCamTexture webcamTexture;

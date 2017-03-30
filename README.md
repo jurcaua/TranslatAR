@@ -7,3 +7,8 @@ TranslatAR films an object with your phone, shows the translation into the desir
 
 Our team created this app at MHacks9 on the weekend of March 24th-26th 2017. 
 This was a unique experience for all of us because it was our first time using the game engine Unity, which can be an extremely powerful tool in the right hands.
+
+# Screenshots:
+
+<img src="https://github.com/jurcaua/github_image_hosting/blob/master/TranslatAR/translatAR-test-pic1.png" width="400">
+<img src="https://github.com/jurcaua/github_image_hosting/blob/master/TranslatAR/translatAR-test-pic2.png" width="400">

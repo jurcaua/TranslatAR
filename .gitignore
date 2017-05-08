@@ -18,6 +18,7 @@ ExportedObj/
 *.booproj
 *.svd
 
+visionApiKey.txt
 
 # Unity3D generated meta files
 *.pidb.meta

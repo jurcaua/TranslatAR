@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class WebCamTextureToCloudVision : MonoBehaviour {
 
 	private string url = "https://vision.googleapis.com/v1/images:annotate?key=";
-	private string apiKey = "";
+	private string apiKey = "AIzaSyDcaHwd9Bf4T9Mwen7D2jSwLL0KvVVi3EE";
 	public float captureIntervalSeconds = 5.0f;
 	public int requestedWidth = 640;
 	public int requestedHeight = 480;

@@ -12,6 +12,8 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	public int requestedHeight = 480;
 	public FeatureType featureType = FeatureType.FACE_DETECTION;
 	public int maxResults = 10;
+	private HashSet<string> bannedWords;
+	public RawImage debugTexture;
 
 	[HideInInspector] public string curr_lang = "fr";
 
@@ -205,6 +207,23 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 		VERY_LIKELY
 	}
 
+	void Awake(){
+		bannedWords = new HashSet<string> ();
+		bannedWords.Add ("product");
+		bannedWords.Add ("image");
+		bannedWords.Add ("colour");
+		bannedWords.Add ("color");
+		bannedWords.Add ("colour");
+		bannedWords.Add ("black");
+		bannedWords.Add ("white");
+		bannedWords.Add ("blue");
+		bannedWords.Add ("red");
+		bannedWords.Add ("hair");
+		bannedWords.Add ("human action");
+		bannedWords.Add ("beauty");
+		bannedWords.Add ("light");
+	}
+
 	// Use this for initialization
 	void Start () {
 
@@ -281,7 +300,9 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 			}
 
 			texture2D.SetPixels(pixels);
-			// texture2D.Apply(false); // Not required. Because we do not need to be uploaded it to GPU
+			texture2D.Apply(false); // Not required. Because we do not need to be uploaded it to GPU
+			debugTexture.texture = texture2D;
+
 			byte[] jpg = texture2D.EncodeToJPG();
 			string base64 = System.Convert.ToBase64String(jpg);
 			#if UNITY_WEBGL	
@@ -321,13 +342,31 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 						Sample_OnAnnotateImageResponses(responses);
 						if (responses.responses.Count > 0 && responses.responses[0].labelAnnotations.Count > 0){
 
+							string bestLabel = string.Empty;
+							// parse through and try to find suitable word
+							foreach (EntityAnnotation annotation in responses.responses[0].labelAnnotations){
+
+								// check if this is one of the banned words --> go to next label
+								if (!bannedWords.Contains(annotation.description.ToLower())){
+									bestLabel = annotation.description;
+									break;
+								}
+							}
+
+							// all words were banned, so we need to reprocess
+							if (bestLabel == string.Empty){
+								StartCoroutine("Capture");
+								yield return null;
+							}
+
 							// make a new text object and set the text to it
 							Destroy(currentLabel);
 							currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform)  as GameObject;
-							currentLabel.GetComponent<Text>().text = responses.responses[0].labelAnnotations[0].description;
+							currentLabel.GetComponent<Text>().text = bestLabel;
+							//currentLabel.GetComponent<Text>().text = responses.responses[0].labelAnnotations[0].description;
 
 							// translate it
-							translate.Process(curr_lang, currentLabel.GetComponent<Text>().text);
+							translate.Process(curr_lang, bestLabel);
 						}
 					} else {
 						Debug.Log("Error: " + www.error);

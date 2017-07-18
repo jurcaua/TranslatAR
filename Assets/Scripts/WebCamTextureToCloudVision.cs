@@ -18,9 +18,8 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	[HideInInspector] public string curr_lang = "fr";
 
 	public GameObject canvas;
-	public Transform textSpawnPoint;
-	public Text translatedSpawnPoint;
-	public GameObject label;
+    public Text srcText;
+    public Text destText;
 	private GameObject currentLabel;
 	private TranslateWatson translate;
 
@@ -232,10 +231,10 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 			transform.localScale = new Vector3 (-transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		}
 
-		textSpawnPoint.gameObject.SetActive (false);
+		//textSpawnPoint.gameObject.SetActive (false);
 		//translatedSpawnPoint.gameObject.SetActive (false);
 
-		currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform) as GameObject;
+		//currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform) as GameObject;
 
 		translate = GameObject.FindGameObjectWithTag ("Translate").GetComponent<TranslateWatson> ();
 
@@ -359,14 +358,17 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 								yield return null;
 							}
 
-							// make a new text object and set the text to it
-							Destroy(currentLabel);
-							currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform)  as GameObject;
-							currentLabel.GetComponent<Text>().text = bestLabel;
-							//currentLabel.GetComponent<Text>().text = responses.responses[0].labelAnnotations[0].description;
+                            // set src text to found word
+                            srcText.text = bestLabel;
 
-							// translate it
-							translate.Process(curr_lang, bestLabel);
+                            // make a new text object and set the text to it
+                            //Destroy(currentLabel);
+                            //currentLabel = Instantiate (label, textSpawnPoint.position, textSpawnPoint.rotation, canvas.transform)  as GameObject;
+                            //currentLabel.GetComponent<Text>().text = bestLabel;
+                            //currentLabel.GetComponent<Text>().text = responses.responses[0].labelAnnotations[0].description;
+
+                            // translate it
+                            translate.Process(curr_lang, bestLabel);
 						}
 					} else {
 						Debug.Log("Error: " + www.error);
@@ -401,7 +403,7 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	}
 
 	public void SetTranslated(string toSet){
-		translatedSpawnPoint.text = toSet;
+		destText.text = toSet;
 	}
 
 	public void SetCurrentLanguage (string curr){

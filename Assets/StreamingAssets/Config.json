@@ -4,18 +4,18 @@
     "m_MaxRestConnections": 5,
     "m_Credentials": [
         {
-            "m_ServiceID": "LanguageTranslatorV1",
-            "m_URL": "https://gateway.watsonplatform.net/language-translator/api",
-            "m_User": "6f801410-87ee-4bb1-a53a-72f22af65acc",
-            "m_Password": "GJhitZnfBcPa",
+            "m_ServiceID": "TextToSpeechV1",
+            "m_URL": "https://stream.watsonplatform.net/text-to-speech/api",
+            "m_User": "01c98512-aa21-4e8a-b138-be30806d20d1",
+            "m_Password": "LvyuYNfw7Mly",
             "m_Apikey": null,
             "m_Note": null
         },
         {
-            "m_ServiceID": "TextToSpeechV1",
-            "m_URL": "https://stream.watsonplatform.net/text-to-speech/api",
-            "m_User": "fd167b3a-53a7-44aa-ab24-f83f50e20f1d",
-            "m_Password": "rbqwYtXz5Vfi",
+            "m_ServiceID": "LanguageTranslatorV1",
+            "m_URL": "https://gateway.watsonplatform.net/language-translator/api",
+            "m_User": "531bb6d5-967a-45bc-b4c4-3b338127cadb",
+            "m_Password": "V4PcUp7kdr3C",
             "m_Apikey": null,
             "m_Note": null
         }
